@@ -1,0 +1,102 @@
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = document.body.classList.contains("logged-in");
+    const overlay = document.getElementById("maintenance-overlay");
+
+    // Mostrar u ocultar overlay según si el usuario está logueado
+    if (isLoggedIn && overlay) {
+      overlay.style.display = "none";
+      document.body.classList.remove("no-scroll");
+    } else {
+      document.body.classList.add("no-scroll");
+    }
+  });
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body.no-scroll {
+    overflow: hidden;
+    background: black !important;
+  }
+
+  #maintenance-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+  }
+
+  .media {
+    position: absolute;
+    opacity: 1;
+    max-width: 170px;
+    height: auto;
+    display: none;
+  }
+
+  .gif-size {
+    max-width: 120px;
+  }
+
+  .breathing {
+    animation: pulseIntro 1.6s ease-in-out infinite;
+  }
+
+  @keyframes pulseIntro {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.15); opacity: 0.85; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
+
+<div id="maintenance-overlay">
+  <!-- Orden exacto solicitado con nuevas imágenes -->
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/ES-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/tools-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/EN-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/qr-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/ES-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/error-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/EN-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/api-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/ES-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/no-entry-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/EN-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/magic-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/ES-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/pencil-tidelit.gif" class="media gif-size breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/EN-Tidelit-Vec-Ai-scaled.png" class="media breathing">
+  <img src="https://www.tidelit.co/wp-content/uploads/2025/06/pause-tidelit.gif" class="media gif-size breathing">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(".media");
+    let current = 0;
+
+    function showOnly(index) {
+      elements.forEach((el, i) => {
+        el.style.display = i === index ? "block" : "none";
+      });
+    }
+
+    showOnly(current);
+
+    setInterval(() => {
+      current = (current + 1) % elements.length;
+      showOnly(current);
+    }, 5000);
+  });
+</script>
