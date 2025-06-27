@@ -1,0 +1,33 @@
+<!-- Transición Tidelit solo para navegación interna -->
+<div id="tidelit-transition" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 1;">
+  <img id="transition-logo"
+    src="https://www.tidelit.co/wp-content/uploads/2025/06/Tidelit-Vec-Ai-Carga-web.png"
+    alt="Tidelit Loading"
+    style="width: 150px; height: auto; animation: pulseIntro 1.6s ease-in-out infinite;">
+</div>
+
+<style>
+@keyframes pulseIntro {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.15); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
+}
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const transition = document.getElementById('tidelit-transition');
+
+    if (sessionStorage.getItem('introShown')) {
+      setTimeout(() => {
+        transition.style.transition = 'opacity 0.6s ease';
+        transition.style.opacity = '0';
+        setTimeout(() => {
+          transition.style.display = 'none';
+        }, 600);
+      }, 1500); // 1.5 segundos visibles
+    } else {
+      transition.style.display = 'none';
+    }
+  });
+</script>

@@ -1,0 +1,75 @@
+<audio id="intro-audio" preload="auto">
+  <source src="https://www.tidelit.co/wp-content/uploads/2025/06/Firma-sonora-de-marca-digital-Tidelit.mp3" type="audio/mpeg">
+</audio>
+
+<style>
+@keyframes pulseIntro {
+  0%   { transform: scale(1); opacity: 1; }
+  50%  { transform: scale(1.22); opacity: 0.75; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes inhaleExhale {
+  0%    { transform: scale(1); opacity: 1; }
+  73.3% { transform: scale(1.7); opacity: 1; }
+  100%  { transform: scale(0.6); opacity: 0; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const audio = document.getElementById('intro-audio');
+  audio.load(); // Forzar carga anticipada del audio
+
+  if (!sessionStorage.getItem('introShown')) {
+    const introDiv = document.createElement('div');
+    introDiv.id = 'tidelit-intro';
+    introDiv.style = 'position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: black; display: flex; justify-content: center; align-items: center; z-index: 9999; opacity: 1;';
+
+    const logo1 = document.createElement('img');
+    logo1.id = 'intro-logo-1';
+    logo1.src = 'https://www.tidelit.co/wp-content/uploads/2025/06/Tidelit-Vec-Ai-Clic.Aqui_-scaled.png';
+    logo1.alt = 'Tidelit Intro';
+    logo1.style = 'width: 150px; height: auto; animation: pulseIntro 1.6s ease-in-out infinite; cursor: pointer; -webkit-tap-highlight-color: transparent; outline: none;';
+
+    introDiv.appendChild(logo1);
+    document.body.appendChild(introDiv);
+
+    const hideIntro = (delay = 800) => {
+      introDiv.style.transition = 'opacity 0.8s ease';
+      introDiv.style.opacity = '0';
+      setTimeout(() => {
+        introDiv.remove();
+      }, delay);
+    };
+
+    const activateIntro = () => {
+      sessionStorage.setItem('introShown', 'true');
+
+      // Play justo al toque (sin retardo), mejora en Safari iOS
+      audio.volume = 1;
+      audio.play().catch(() => {});
+
+      // Mostrar imagen 2 tras 200 ms
+      setTimeout(() => {
+        if (!document.getElementById('intro-logo-2')) {
+          logo1.remove();
+
+          const logo2 = document.createElement('img');
+          logo2.id = 'intro-logo-2';
+          logo2.src = 'https://www.tidelit.co/wp-content/uploads/2025/06/Tidelit-Vec-Ai-Carga-web.png';
+          logo2.alt = 'Tidelit Transition';
+          logo2.style = 'width: 150px; height: auto; animation: inhaleExhale 3s ease forwards;';
+
+          introDiv.appendChild(logo2);
+        }
+      }, 200); // Retardo leve para no empalmar con audio
+
+      setTimeout(() => hideIntro(), 3000);
+    };
+
+    logo1.addEventListener('click', activateIntro);
+    logo1.addEventListener('touchstart', activateIntro);
+  }
+});
+</script>
